@@ -5,13 +5,11 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
-
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
 ///////////////////////////////////////
 // Modal window
-
 
 const openModal = function (e) {
   e.preventDefault();
@@ -23,7 +21,6 @@ const closeModal = function () {
   modal.classList.add('hidden');
   overlay.classList.add('hidden');
 };
-
 
 btnsOpenModal.forEach(btn => btn.addEventListener('click', openModal));
 
@@ -39,7 +36,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-
 // button scrolling
 /* -------------------- 189. Implementing Smooth Scrolling -------------------- */
 btnScrollTo.addEventListener('click', function (e) {
@@ -54,7 +50,6 @@ btnScrollTo.addEventListener('click', function (e) {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-
 // Page navigation
 // 1. Add Event Listener to common parent element
 // 2. Determine what element originated the event
@@ -67,7 +62,28 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
     const id = e.target.getAttribute('href');
     document.querySelector(id).scrollIntoView({
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   }
+});
+
+// Tabbed component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+  // Guard clause
+
+  // Active tab
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  clicked.classList.add('operations__tab--active');
+
+  // Activate content area
+  tabsContent.forEach(t => t.classList.remove('operations__content--active'));
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
